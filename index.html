@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script src="./js/konva.min.js"></script>
+    <script src="./js/CircleText.js"></script>
+</head>
+<body>
+<!--//将konva舞台放到这里面-->
+<div id="container">
+
+</div>
+
+<script>
+    //创建一个舞台
+    var stage = new Konva.Stage(
+            {
+                container: 'container',
+                width: window.innerWidth,
+                height: window.innerHeight
+            }
+    );
+
+    //背景层
+    var bgLayer = new Konva.Layer();
+    stage.add(bgLayer);
+
+    var centerX = stage.width()/2;
+    var centerY = stage.height()/2;
+
+
+    //绘制外圆
+    var outRadius = 220;
+    var ierRadius = 257/2;
+    var outCircle = new Konva.Circle({
+        x:centerX,
+        y:centerY,
+        radius:outRadius,
+        stroke:"#ccc",
+        strokeWidth: 4,
+        dash: [10,4], //设置虚线，10实线， 4像素空
+    });
+
+    bgLayer.add(outCircle);
+    var innerCircle = new Konva.Circle({
+        x:centerX,
+        y:centerY,
+        radius:ierRadius,
+        stroke:"#ccc",
+        strokeWidth: 4,
+        dash: [10,4], //设置虚线，10实线， 4像素空
+    });
+    bgLayer.add(innerCircle);
+
+    var circleText = new CircleText({
+       x:centerX,
+       y:centerY,
+       innerRadius: 134/2,
+       innerStyle:"#525A82",
+       outerRadius:90,
+       outerStyle:"#E1E1E1",
+       text:"Konva"
+    });
+    circleText.addToLayerOrStage(bgLayer);
+    //创建二层上面的一个组
+   var twoGroup = new Konva.Group({
+       x:centerX,
+       y:centerY
+   });
+    //绘制动画层
+    var animateLayer = new Konva.Layer();
+    animateLayer.add(twoGroup);
+
+    stage.add(animateLayer);
+    //第二层上面的圆
+    var circleTextTwoCSS = new CircleText({
+        x:Math.cos(0*Math.PI/180)*ierRadius,
+        y:Math.sin(0*Math.PI/180)*ierRadius,
+        innerRadius: 30,
+        innerStyle:"#FCB430",
+        outerRadius:40,
+        outerStyle:"#E1E1E1",
+        text:"CSS3"
+    });
+
+    circleTextTwoCSS.addToLayerOrStage(twoGroup);
+
+
+
+
+    //第二层上面的圆
+    var circleTextTwoHtml5 = new CircleText({
+        x:Math.cos(90*Math.PI/180)*ierRadius,
+        y:Math.sin(90*Math.PI/180)*ierRadius,
+        innerRadius: 30,
+        innerStyle:"#F8D5DB",
+        outerRadius:40,
+        outerStyle:"#E1E1E1",
+        text:"HTML5"
+    });
+    circleTextTwoHtml5.addToLayerOrStage(twoGroup);
+
+    //第二层上面的圆
+    var circleTextTwoNode = new CircleText({
+        x:Math.cos(180*Math.PI/180)*ierRadius,
+        y:Math.sin(180*Math.PI/180)*ierRadius,
+        innerRadius: 30,
+        innerStyle:"#F8D5DB",
+        outerRadius:40,
+        outerStyle:"#E1E1E1",
+        text:"NodeJs"
+    });
+    circleTextTwoNode.addToLayerOrStage(twoGroup);
+
+    //第二层上面的圆
+    var circleTextTwoVue = new CircleText({
+        x:Math.cos(270*Math.PI/180)*ierRadius,
+        y:Math.sin(270*Math.PI/180)*ierRadius,
+        innerRadius: 30,
+        innerStyle:"#F8D5DB",
+        outerRadius:40,
+        outerStyle:"#E1E1E1",
+        text:"VueJs"
+    });
+    circleTextTwoVue.addToLayerOrStage(twoGroup);
+    var threeGroup = new Konva.Group({
+        x:centerX,
+        y:centerY
+    });
+    animateLayer.add(threeGroup);
+    //第三层上面的圆
+    var circleTextThreeJS = new CircleText({
+        x:Math.cos(0*Math.PI/180)*outRadius,
+        y:Math.sin(0*Math.PI/180)*outRadius,
+        innerRadius: 30,
+        innerStyle:"#A4C9F6",
+        outerRadius:40,
+        outerStyle:"#E1E1E1",
+        text:"JS"
+    });
+    circleTextThreeJS.addToLayerOrStage(threeGroup);
+    //第三层上面的圆
+    var circleTextThreeAngular = new CircleText({
+        x:Math.cos(90*Math.PI/180)*outRadius,
+        y:Math.sin(90*Math.PI/180)*outRadius,
+        innerRadius: 30,
+        innerStyle:"#A4C9F6",
+        outerRadius:40,
+        outerStyle:"#E1E1E1",
+        text:"AngularJs"
+    });
+    circleTextThreeAngular.addToLayerOrStage(threeGroup);
+    var circleTextThreeES6 = new CircleText({
+        x:Math.cos(180*Math.PI/180)*outRadius,
+        y:Math.sin(180*Math.PI/180)*outRadius,
+        innerRadius: 30,
+        innerStyle:"#A4C9F6",
+        outerRadius:40,
+        outerStyle:"#E1E1E1",
+        text:"ES6"
+    });
+    circleTextThreeES6.addToLayerOrStage(threeGroup);
+    var circleTextThreeAngular = new CircleText({
+        x:Math.cos(270*Math.PI/180)*outRadius,
+        y:Math.sin(270*Math.PI/180)*outRadius,
+        innerRadius: 30,
+        innerStyle:"#A4C9F6",
+        outerRadius:40,
+        outerStyle:"#E1E1E1",
+        text:"PS"
+    });
+    circleTextThreeAngular.addToLayerOrStage(threeGroup);
+    animateLayer.draw();
+    bgLayer.draw();
+    var rotateAnglPerSecond = 60;//每秒钟设置旋转60
+    //Konva帧动画系统
+    var animate = new Konva.Animation(function (frame) {
+        var rotateAngle = rotateAnglPerSecond*frame.timeDiff/1000;
+        twoGroup.rotate(rotateAngle);
+        threeGroup.rotate(-rotateAngle);
+        //拿到第二个组里面的内组
+        twoGroup.getChildren().each(function (item,index) {
+           item.rotate(-rotateAngle);
+        });
+
+        threeGroup.getChildren().each(function (item,index) {
+            item.rotate(rotateAngle);
+        });
+    },animateLayer);
+
+    animate.start();
+    //Konva的事件系统，jQuery一样的
+    //给动画层绑定一个鼠标移上去的事件
+    animateLayer.on('mouseover', function(){
+        //设置旋转角度
+        rotateAnglPerSecond = 10; //设置旋转的角度为10度，旋转变慢。
+    });
+
+    //给动画层绑定 mouseout离开的事件。
+    animateLayer.on('mouseout', function(){
+        //当鼠标移开的时候，旋转加快
+        rotateAnglPerSecond = 60; //设置旋转角度为60度，旋转变快
+    });
+</script>
+</body>
+</html>
